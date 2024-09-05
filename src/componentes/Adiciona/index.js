@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
 
 function Adiciona() {
@@ -6,31 +6,28 @@ function Adiciona() {
   const [contador, setContador] = useState(valorInicial);
   const [corBotao, setCorBotao] = useState("black");
 
+  // Verifica se o contador é maior que 10 e define a cor do botão
+  useEffect(() => {
+    if (contador > 10) {
+      setCorBotao("red");
+    } else {
+      setCorBotao("black");
+    }
+  }, [contador]);
+
   const increment = () => {
-    const newContador = contador + 1;
-    setContador(newContador);
-    // Verifica se o contador é maior que 10 e define a cor do botão
-    if (newContador > 10) {
-      setCorBotao("red");
-    } else {
-      setCorBotao("black");
-    }
+    setContador(oldValue => oldValue + 1);
   };
+
   const decrement = () => {
-    const newContador = contador - 1;
-    setContador(newContador);
-    // Mantem a cor do botão “red” enquanto o contador é maior que 10
-    if (newContador > 10) {
-      setCorBotao("red");
-    } else {
-      setCorBotao("black");
-    }
+    setContador(oldValue => oldValue - 1);
   };
-  // Retorna o valor para zero e a cor do botão para “black”
+
+  // Retorna o valor para zero
   const restart = () => {
     setContador(valorInicial);
-    setCorBotao("black");
   };
+
   return (
     <div>
       <h3 className="titulo"> Controlador de Temperatura </h3>
